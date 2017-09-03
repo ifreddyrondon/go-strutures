@@ -21,28 +21,32 @@ func New(value int) *BST {
 	return &BST{NewNode(value)}
 }
 
-// Insert insert an item in the right position in the tree
-func (t *BST) Insert(value int) {
+// Insert insert an item in the right position in the tree. Return true if the value was inserted and false otherwise
+func (t *BST) Insert(value int) bool {
 	node := NewNode(value)
 	if t.Root == nil {
 		t.Root = node
-	} else {
-		insertNode(t.Root, node)
+		return true
 	}
+	return insertNode(t.Root, node)
 }
 
-func insertNode(root, newNode *Node) {
+func insertNode(root, newNode *Node) bool {
+	if root.Value == newNode.Value {
+		return false
+	}
+
 	if newNode.Value < root.Value {
 		if root.Left == nil {
 			root.Left = newNode
-		} else {
-			insertNode(root.Left, newNode)
+			return true
 		}
+		return insertNode(root.Left, newNode)
 	} else {
 		if root.Right == nil {
 			root.Right = newNode
-		} else {
-			insertNode(root.Right, newNode)
+			return true
 		}
+		return insertNode(root.Right, newNode)
 	}
 }
