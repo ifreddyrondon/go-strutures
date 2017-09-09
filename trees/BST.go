@@ -50,3 +50,23 @@ func insertNode(root, newNode *Node) bool {
 		return insertNode(root.Right, newNode)
 	}
 }
+
+// InOrderTraverse visits all the nodes in order
+func (t *BST) InOrderTraverse(f func(int)) {
+	if t.Root == nil {
+		return
+	}
+
+	inOrderTraverse(t.Root, f)
+}
+
+// internal recursive function to traverse in order
+func inOrderTraverse(node *Node, f func(int)) {
+	if node == nil {
+		return
+	}
+
+	inOrderTraverse(node.Left, f)
+	f(node.Value)
+	inOrderTraverse(node.Right, f)
+}
