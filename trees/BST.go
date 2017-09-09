@@ -60,7 +60,6 @@ func (t *BST) InOrderTraverse(f func(int)) {
 	inOrderTraverse(t.Root, f)
 }
 
-// internal recursive function to traverse in order
 func inOrderTraverse(node *Node, f func(int)) {
 	if node == nil {
 		return
@@ -80,7 +79,6 @@ func (t *BST) PreOrderTraverse(f func(int)) {
 	preOrderTraverse(t.Root, f)
 }
 
-// internal recursive function to traverse in pre order
 func preOrderTraverse(node *Node, f func(int)) {
 	if node == nil {
 		return
@@ -89,4 +87,23 @@ func preOrderTraverse(node *Node, f func(int)) {
 	f(node.Value)
 	preOrderTraverse(node.Left, f)
 	preOrderTraverse(node.Right, f)
+}
+
+// PostOrderTraverse visits all the nodes in post order
+func (t *BST) PostOrderTraverse(f func(int)) {
+	if t.Root == nil {
+		return
+	}
+
+	postOrderTraverse(t.Root, f)
+}
+
+func postOrderTraverse(node *Node, f func(int)) {
+	if node == nil {
+		return
+	}
+
+	postOrderTraverse(node.Left, f)
+	postOrderTraverse(node.Right, f)
+	f(node.Value)
 }
