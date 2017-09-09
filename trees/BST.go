@@ -70,3 +70,23 @@ func inOrderTraverse(node *Node, f func(int)) {
 	f(node.Value)
 	inOrderTraverse(node.Right, f)
 }
+
+// PreOrderTraverse visits all the nodes in pre order
+func (t *BST) PreOrderTraverse(f func(int)) {
+	if t.Root == nil {
+		return
+	}
+
+	preOrderTraverse(t.Root, f)
+}
+
+// internal recursive function to traverse in pre order
+func preOrderTraverse(node *Node, f func(int)) {
+	if node == nil {
+		return
+	}
+
+	f(node.Value)
+	preOrderTraverse(node.Left, f)
+	preOrderTraverse(node.Right, f)
+}
