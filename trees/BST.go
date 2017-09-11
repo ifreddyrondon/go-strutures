@@ -107,3 +107,19 @@ func postOrderTraverse(node *Node, f func(int)) {
 	postOrderTraverse(node.Right, f)
 	f(node.Value)
 }
+
+// Min returns the node with minimal value stored in the tree
+func (t *BST) Min() *Node {
+	if t.Root == nil {
+		return nil
+	}
+
+	current := t.Root
+	for {
+		if current.Left == nil {
+			return current
+		}
+
+		current = current.Left
+	}
+}

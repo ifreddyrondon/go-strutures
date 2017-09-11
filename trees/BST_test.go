@@ -227,3 +227,37 @@ func TestPostOrderTraverse(t *testing.T) {
 		})
 	}
 }
+
+func TestGetMin(t *testing.T) {
+	tt := []struct {
+		name         string
+		insertValues []int
+		expected     *trees.Node
+	}{
+		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, &trees.Node{Value: 1, Left: nil, Right: nil}},
+		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, &trees.Node{Value: 1, Left: nil, Right: nil}},
+		{"bst unbalanced to right", []int{5, 6, 7, 8, 9, 10}, &trees.Node{Value: 5, Left: nil, Right: nil}},
+		{"bst unbalanced to left", []int{5, 4, 3, 2, 1}, &trees.Node{Value: 1, Left: nil, Right: nil}},
+		{"only root", []int{5}, &trees.Node{Value: 5, Left: nil, Right: nil}},
+	}
+
+	for _, tc := range tt {
+		t.Run(tc.name, func(t *testing.T) {
+			bst := trees.BST{}
+			fillTreeWithList(&bst, tc.insertValues)
+
+			result := bst.Min()
+			if result.Value != tc.expected.Value {
+				t.Errorf("Expected min to be '%v'. Got '%v'", tc.expected, result)
+			}
+		})
+	}
+}
+
+func TestGetMinForNilBST(t *testing.T) {
+	bst := trees.BST{}
+	result := bst.Min()
+	if result != nil {
+		t.Errorf("Expected min to be '%v'. Got '%v'", nil, result)
+	}
+}
