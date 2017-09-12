@@ -123,3 +123,19 @@ func (t *BST) Min() *Node {
 		current = current.Left
 	}
 }
+
+// Max returns the node with maximum value stored in the tree
+func (t *BST) Max() *Node {
+	if t.Root == nil {
+		return nil
+	}
+
+	current := t.Root
+	for {
+		if current.Right == nil {
+			return current
+		}
+
+		current = current.Right
+	}
+}
