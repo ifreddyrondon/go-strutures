@@ -164,3 +164,8 @@ func searchNode(node *Node, value int) *Node {
 		return searchNode(node.Right, value)
 	}
 }
+
+// Has returns true if if the value exists in the tree
+func (t *BST) Has(value int) bool {
+	return t.Search(value) != nil
+}

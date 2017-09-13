@@ -345,3 +345,32 @@ func TestSearchNilReturn(t *testing.T) {
 		})
 	}
 }
+
+func TestHasNode(t *testing.T) {
+	tt := []struct {
+		name         string
+		insertValues []int
+		searchValue  int
+		expected     bool
+	}{
+		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, 4, true},
+		{"search duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, 1, true},
+		{"bst unbalanced to right", []int{5, 6, 7, 8, 9, 10}, 10, true},
+		{"bst unbalanced to left", []int{5, 4, 3, 2, 1}, 1, true},
+		{"only root", []int{5}, 5, true},
+		{"not found", []int{5, 3, 1, 4, 7, 9, 6}, 2, false},
+		{"nil tree", []int{}, 1, false},
+	}
+
+	for _, tc := range tt {
+		t.Run(tc.name, func(t *testing.T) {
+			bst := trees.BST{}
+			fillTreeWithList(&bst, tc.insertValues)
+
+			result := bst.Has(tc.searchValue)
+			if result != tc.expected {
+				t.Errorf("Expected has to be '%v'. Got '%v'", tc.expected, result)
+			}
+		})
+	}
+}
