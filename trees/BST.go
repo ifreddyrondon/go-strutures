@@ -139,3 +139,28 @@ func (t *BST) Max() *Node {
 		current = current.Right
 	}
 }
+
+// Search returns the node if the value exists in the tree
+func (t *BST) Search(value int) *Node {
+	if t.Root == nil {
+		return nil
+	}
+
+	return searchNode(t.Root, value)
+}
+
+func searchNode(node *Node, value int) *Node {
+	if node == nil {
+		return nil
+	}
+
+	if node.Value == value {
+		return node
+	}
+
+	if node.Value > value {
+		return searchNode(node.Left, value)
+	} else {
+		return searchNode(node.Right, value)
+	}
+}

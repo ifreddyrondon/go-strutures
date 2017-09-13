@@ -295,3 +295,53 @@ func TestGetMaxForNilBST(t *testing.T) {
 		t.Errorf("Expected max to be '%v'. Got '%v'", nil, result)
 	}
 }
+
+func TestSearchNode(t *testing.T) {
+	tt := []struct {
+		name         string
+		insertValues []int
+		searchValue  int
+		expected     *trees.Node
+	}{
+		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, 4, &trees.Node{Value: 4, Left: nil, Right: nil}},
+		{"search duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, 1, &trees.Node{Value: 1, Left: nil, Right: nil}},
+		{"bst unbalanced to right", []int{5, 6, 7, 8, 9, 10}, 10, &trees.Node{Value: 10, Left: nil, Right: nil}},
+		{"bst unbalanced to left", []int{5, 4, 3, 2, 1}, 1, &trees.Node{Value: 1, Left: nil, Right: nil}},
+		{"only root", []int{5}, 5, &trees.Node{Value: 5, Left: nil, Right: nil}},
+	}
+
+	for _, tc := range tt {
+		t.Run(tc.name, func(t *testing.T) {
+			bst := trees.BST{}
+			fillTreeWithList(&bst, tc.insertValues)
+
+			result := bst.Search(tc.searchValue)
+			if result.Value != tc.expected.Value {
+				t.Errorf("Expected search to be '%v'. Got '%v'", tc.expected, result)
+			}
+		})
+	}
+}
+
+func TestSearchNilReturn(t *testing.T) {
+	tt := []struct {
+		name         string
+		insertValues []int
+		searchValue  int
+	}{
+		{"not found", []int{5, 3, 1, 4, 7, 9, 6}, 2},
+		{"nil tree", []int{}, 1},
+	}
+
+	for _, tc := range tt {
+		t.Run(tc.name, func(t *testing.T) {
+			bst := trees.BST{}
+			fillTreeWithList(&bst, tc.insertValues)
+
+			result := bst.Search(tc.searchValue)
+			if result != nil {
+				t.Errorf("Expected search to be nil. Got '%v'", result)
+			}
+		})
+	}
+}
