@@ -159,3 +159,46 @@ func searchNode(node *Node, value int) *Node {
 func (t *BST) Has(value int) bool {
 	return t.Search(value) != nil
 }
+
+// Remove remove an item from the tree. Return true if the value was removed and false otherwise.
+func (t *BST) Remove(value int) bool {
+	_, removed := removeNode(t.Root, value)
+	return removed
+}
+
+func removeNode(node *Node, value int) (*Node, bool) {
+	removed := true
+	if node == nil {
+		return nil, false
+	}
+
+	if node.Value > value {
+		node.Left, removed = removeNode(node.Left, value)
+		return node, removed
+	} else if node.Value < value {
+		node.Right, removed = removeNode(node.Right, value)
+		return node, removed
+	}
+
+	// after this point the node.Value == value
+	// delete case 1: delete leaf node
+	if node.Left == nil && node.Right == nil {
+		return nil, removed
+	}
+
+	// delete case 2: delete half-leaf node
+	if node.Left == nil {
+		node = node.Right
+		return node, removed
+	}
+	if node.Right == nil {
+		node = node.Left
+		return node, removed
+	}
+
+	// delete case 3: delete an inner node
+	replacement := maxNode(node.Left)
+	node.Value = replacement.Value
+	node.Left, removed = removeNode(node.Left, node.Value)
+	return node, removed
+}

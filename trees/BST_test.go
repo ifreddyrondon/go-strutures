@@ -374,3 +374,44 @@ func TestHasNode(t *testing.T) {
 		})
 	}
 }
+
+func TestDeleteNode(t *testing.T) {
+	tt := []struct {
+		name            string
+		insertValues    []int
+		deleteValue     int
+		inOrderExpected []int
+		resultExpected  bool
+	}{
+		{"leaf node", []int{5, 7, 2, 1, 4, 6}, 1, []int{2, 4, 5, 6, 7}, true},
+		{"half-leaf left node", []int{5, 2, 3, 4, 6}, 3, []int{2, 4, 5, 6}, true},
+		{"half-leaf right node", []int{5, 7, 2, 1, 4, 6}, 7, []int{1, 2, 4, 5, 6}, true},
+		{"inner node", []int{5, 7, 2, 1, 4, 6}, 2, []int{1, 4, 5, 6, 7}, true},
+		{"root node", []int{5, 7, 2, 1, 4, 6}, 5, []int{1, 2, 4, 6, 7}, true},
+		{"not found", []int{5, 7, 2, 1, 4, 6}, 3, []int{1, 2, 4, 5, 6, 7}, false},
+		{"nil tree", []int{}, 1, []int{}, false},
+	}
+
+	for _, tc := range tt {
+		t.Run(tc.name, func(t *testing.T) {
+			bst := trees.BST{}
+			fillTreeWithList(&bst, tc.insertValues)
+
+			result := bst.Remove(tc.deleteValue)
+			if result != tc.resultExpected {
+				t.Errorf("Expected delete result to be '%v'. Got '%v'", tc.resultExpected, result)
+			}
+
+			var inOrderResult []int
+			bst.InOrderTraverse(func(i int) {
+				inOrderResult = append(inOrderResult, i)
+			})
+			for i := range inOrderResult {
+				if inOrderResult[i] != tc.inOrderExpected[i] {
+					t.Errorf("Expected in order traversal after remove to be '%v'. Got '%v'", tc.inOrderExpected, inOrderResult)
+					break
+				}
+			}
+		})
+	}
+}
