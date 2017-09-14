@@ -98,32 +98,38 @@ func postOrderTraverse(node *Node, f func(int)) {
 
 // Min returns the node with minimal value stored in the tree
 func (t *BST) Min() *Node {
-	if t.Root == nil {
+	return minNode(t.Root)
+}
+
+func minNode(node *Node) *Node {
+	if node == nil {
 		return nil
 	}
 
-	current := t.Root
+	current := node
 	for {
 		if current.Left == nil {
 			return current
 		}
-
 		current = current.Left
 	}
 }
 
 // Max returns the node with maximum value stored in the tree
 func (t *BST) Max() *Node {
-	if t.Root == nil {
+	return maxNode(t.Root)
+}
+
+func maxNode(node *Node) *Node {
+	if node == nil {
 		return nil
 	}
 
-	current := t.Root
+	current := node
 	for {
 		if current.Right == nil {
 			return current
 		}
-
 		current = current.Right
 	}
 }
