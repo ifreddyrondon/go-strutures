@@ -53,10 +53,6 @@ func insertNode(root, newNode *Node) bool {
 
 // InOrderTraverse visits all the nodes in order
 func (t *BST) InOrderTraverse(f func(int)) {
-	if t.Root == nil {
-		return
-	}
-
 	inOrderTraverse(t.Root, f)
 }
 
@@ -72,10 +68,6 @@ func inOrderTraverse(node *Node, f func(int)) {
 
 // PreOrderTraverse visits all the nodes in pre order
 func (t *BST) PreOrderTraverse(f func(int)) {
-	if t.Root == nil {
-		return
-	}
-
 	preOrderTraverse(t.Root, f)
 }
 
@@ -91,10 +83,6 @@ func preOrderTraverse(node *Node, f func(int)) {
 
 // PostOrderTraverse visits all the nodes in post order
 func (t *BST) PostOrderTraverse(f func(int)) {
-	if t.Root == nil {
-		return
-	}
-
 	postOrderTraverse(t.Root, f)
 }
 
@@ -142,10 +130,6 @@ func (t *BST) Max() *Node {
 
 // Search returns the node if the value exists in the tree
 func (t *BST) Search(value int) *Node {
-	if t.Root == nil {
-		return nil
-	}
-
 	return searchNode(t.Root, value)
 }
 
