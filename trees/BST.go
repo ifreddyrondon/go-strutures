@@ -162,16 +162,18 @@ func (t *BST) Has(value int) bool {
 
 // Remove remove an item from the tree. Return true if the value was removed and false otherwise.
 func (t *BST) Remove(value int) bool {
-	_, removed := removeNode(t.Root, value)
+	var removed bool
+	t.Root, removed = removeNode(t.Root, value)
 	return removed
 }
 
 func removeNode(node *Node, value int) (*Node, bool) {
-	removed := true
+	var removed bool
 	if node == nil {
-		return nil, false
+		return nil, removed
 	}
 
+	// recursive flows to find the item. When it's found this is avoided
 	if node.Value > value {
 		node.Left, removed = removeNode(node.Left, value)
 		return node, removed
@@ -180,8 +182,10 @@ func removeNode(node *Node, value int) (*Node, bool) {
 		return node, removed
 	}
 
-	// after this point the node.Value == value
-	// delete case 1: delete leaf node
+	// after this point the node.Value == value and the node will be deleted.
+	// for the 3 delete cases early return to no replace with the next one
+	removed = true
+	// delete case 1: delete leaf node. Remove the node
 	if node.Left == nil && node.Right == nil {
 		return nil, removed
 	}
@@ -190,8 +194,7 @@ func removeNode(node *Node, value int) (*Node, bool) {
 	if node.Left == nil {
 		node = node.Right
 		return node, removed
-	}
-	if node.Right == nil {
+	} else if node.Right == nil {
 		node = node.Left
 		return node, removed
 	}

@@ -383,13 +383,132 @@ func TestDeleteNode(t *testing.T) {
 		inOrderExpected []int
 		resultExpected  bool
 	}{
-		{"leaf node", []int{5, 7, 2, 1, 4, 6}, 1, []int{2, 4, 5, 6, 7}, true},
-		{"half-leaf left node", []int{5, 2, 3, 4, 6}, 3, []int{2, 4, 5, 6}, true},
-		{"half-leaf right node", []int{5, 7, 2, 1, 4, 6}, 7, []int{1, 2, 4, 5, 6}, true},
-		{"inner node", []int{5, 7, 2, 1, 4, 6}, 2, []int{1, 4, 5, 6, 7}, true},
-		{"root node", []int{5, 7, 2, 1, 4, 6}, 5, []int{1, 2, 4, 6, 7}, true},
-		{"not found", []int{5, 7, 2, 1, 4, 6}, 3, []int{1, 2, 4, 5, 6, 7}, false},
-		{"nil tree", []int{}, 1, []int{}, false},
+		// LEAF NODES
+		{"remove root when len 1", []int{5}, 5, []int{}, true},
+		{
+			"remove leaf node from left branch when len 3 (plain)",
+			[]int{2, 1, 3},
+			1,
+			[]int{2, 3},
+			true,
+		},
+		{
+			"remove leaf node from right branch when len 3 (plain)",
+			[]int{2, 1, 3},
+			3,
+			[]int{1, 2},
+			true,
+		},
+		{
+			"remove leaf node from left branch",
+			[]int{5, 7, 2, 1, 4, 6},
+			1,
+			[]int{2, 4, 5, 6, 7},
+			true,
+		},
+		{
+			"remove leaf node from right branch",
+			[]int{5, 7, 2, 1, 4, 6},
+			1,
+			[]int{2, 4, 5, 6, 7},
+			true,
+		},
+		{
+			"remove leaf node when tree unbalanced to left",
+			[]int{5, 4, 3, 2, 1},
+			1,
+			[]int{2, 3, 4, 5},
+			true,
+		},
+		{
+			"remove leaf node when tree unbalanced to right",
+			[]int{5, 6, 7, 8, 9, 10},
+			10,
+			[]int{5, 6, 7, 8, 9},
+			true,
+		},
+		// HALF-LEAF
+		{
+			"remove half-leaf from linear left branch",
+			[]int{3, 2, 1, 4, 6},
+			2,
+			[]int{1, 3, 4, 6},
+			true,
+		},
+		{
+			"remove half-leaf from not linear left branch",
+			[]int{5, 2, 3, 6},
+			2,
+			[]int{3, 5, 6},
+			true,
+		},
+		{
+			"remove half-leaf from linear right branch",
+			[]int{3, 2, 1, 4, 6},
+			4,
+			[]int{1, 2, 3, 6},
+			true,
+		},
+		{
+			"remove half-leaf from not linear right branch",
+			[]int{5, 2, 8, 7},
+			8,
+			[]int{2, 5, 7},
+			true,
+		},
+		{
+			"remove root node when tree unbalanced to left",
+			[]int{5, 4, 3, 2, 1},
+			5,
+			[]int{1, 2, 3, 4},
+			true,
+		},
+		{
+			"remove leaf node when tree unbalanced to right",
+			[]int{5, 6, 7, 8, 9, 10},
+			5,
+			[]int{6, 7, 8, 9, 10},
+			true,
+		},
+		// INNER NODE
+		{
+			"remove root node when len 3 (plain)",
+			[]int{2, 1, 3},
+			2,
+			[]int{1, 3},
+			true,
+		},
+		{
+			"remove root node",
+			[]int{5, 7, 2, 1, 4, 6, 8},
+			5,
+			[]int{1, 2, 4, 6, 7, 8},
+			true,
+		},
+		{
+			"inner node from left branch",
+			[]int{5, 7, 2, 1, 4, 6},
+			2,
+			[]int{1, 4, 5, 6, 7},
+			true,
+		},
+		{
+			"inner node from right branch",
+			[]int{5, 2, 7, 6, 8},
+			7,
+			[]int{2, 5, 6, 8},
+			true,
+		},
+		// NOT FOUND
+		{"not found by nil tree", []int{}, 1, []int{}, false},
+		{"not found only root", []int{1}, 2, []int{1}, false},
+		{
+			"not found",
+			[]int{5, 7, 2, 1, 4, 6},
+			3,
+			[]int{1, 2, 4, 5, 6, 7},
+			false,
+		},
 	}
 
 	for _, tc := range tt {
@@ -408,7 +527,7 @@ func TestDeleteNode(t *testing.T) {
 			})
 
 			if len(inOrderResult) != len(tc.inOrderExpected) {
-				t.Fatalf("Expected in order result len to be %v. Got %v", len(tc.inOrderExpected), len(inOrderResult))
+				t.Fatalf("Expected in order traversal to be %v. Got %v", tc.inOrderExpected, inOrderResult)
 			}
 
 			for i := range inOrderResult {
