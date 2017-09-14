@@ -406,6 +406,11 @@ func TestDeleteNode(t *testing.T) {
 			bst.InOrderTraverse(func(i int) {
 				inOrderResult = append(inOrderResult, i)
 			})
+
+			if len(inOrderResult) != len(tc.inOrderExpected) {
+				t.Fatalf("Expected in order result len to be %v. Got %v", len(tc.inOrderExpected), len(inOrderResult))
+			}
+
 			for i := range inOrderResult {
 				if inOrderResult[i] != tc.inOrderExpected[i] {
 					t.Errorf("Expected in order traversal after remove to be '%v'. Got '%v'", tc.inOrderExpected, inOrderResult)
