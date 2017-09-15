@@ -1,22 +1,29 @@
 package trees
 
-// A single node that compose a tree
+// Node is a single node that compose a tree.
 type Node struct {
 	Value int
 	Left  *Node
 	Right *Node
 }
 
+// NewNode is a helper function that given a value return a node.
 func NewNode(value int) *Node {
 	return &Node{value, nil, nil}
 }
 
-// Binary search tree
+// BST is an implementation of a Binary search tree
+//
+// BST stores Item instances in an ordered structure, allowing easy insertion,
+// removal, and iteration.
+//
+// Read/Write operations are not safe for concurrent mutation by multiple
+// goroutines.
 type BST struct {
 	Root *Node
 }
 
-// Constructor, return a Binary Search Tree with the root
+// New build a BST with the root.
 func New(value int) *BST {
 	return &BST{NewNode(value)}
 }
