@@ -17,31 +17,40 @@ func TestNewConstructor(t *testing.T) {
 	}
 }
 
-func TestDoNotInsertTheSameValue(t *testing.T) {
+func TestInsert(t *testing.T) {
 	tt := []struct {
 		name            string
 		insertValues    []int
 		expectedResults []bool
+		expectedLen     int
 	}{
-		{"Insert root node", []int{1}, []bool{true}},
-		{"Insert left node", []int{2, 1}, []bool{true, true}},
-		{"Insert right node", []int{1, 2}, []bool{true, true}},
-		{"Insert right and left node", []int{2, 1, 3}, []bool{true, true, true}},
+		{"insert root node", []int{1}, []bool{true}, 1},
+		{"insert left node (plain tree)", []int{2, 1}, []bool{true, true}, 2},
+		{"insert right node (plain tree)", []int{1, 2}, []bool{true, true}, 2},
 		{
-			"Insert with recursion node",
+			"insert right and left node (plain tree)",
+			[]int{2, 1, 3},
+			[]bool{true, true, true},
+			3,
+		},
+		{
+			"insert with recursion node",
 			[]int{5, 4, 1, 6, 9},
 			[]bool{true, true, true, true, true},
+			5,
 		},
-		{"Insert duplicate for root node", []int{1, 1}, []bool{true, false}},
+		{"insert duplicate for root node", []int{1, 1}, []bool{true, false}, 1},
 		{
-			"Insert children duplicate",
+			"insert children duplicate",
 			[]int{2, 1, 1},
 			[]bool{true, true, false},
+			2,
 		},
 		{
-			"Insert recursive duplicate",
+			"insert recursive duplicate",
 			[]int{5, 4, 1, 8, 9, 1},
 			[]bool{true, true, true, true, true, false},
+			5,
 		},
 	}
 
@@ -64,6 +73,10 @@ func TestDoNotInsertTheSameValue(t *testing.T) {
 
 			if bst.Root.Value != tc.insertValues[0] {
 				t.Errorf("Expected root value to be '%v'. Got '%v'", tc.insertValues[0], bst.Root.Value)
+			}
+
+			if bst.Len() != tc.expectedLen {
+				t.Errorf("Expected Len value to be '%v'. Got '%v'", tc.expectedLen, bst.Len())
 			}
 
 			if len(tc.insertValues) == 1 {
@@ -375,7 +388,7 @@ func TestHasNode(t *testing.T) {
 	}
 }
 
-func TestDeleteNode(t *testing.T) {
+func TestRemoveNode(t *testing.T) {
 	tt := []struct {
 		name            string
 		insertValues    []int
@@ -384,7 +397,13 @@ func TestDeleteNode(t *testing.T) {
 		resultExpected  bool
 	}{
 		// LEAF NODES
-		{"remove root when len 1", []int{5}, 5, []int{}, true},
+		{
+			"remove root when len 1",
+			[]int{5},
+			5,
+			[]int{},
+			true,
+		},
 		{
 			"remove leaf node from left branch when len 3 (plain)",
 			[]int{2, 1, 3},
@@ -525,6 +544,10 @@ func TestDeleteNode(t *testing.T) {
 			bst.InOrderTraverse(func(i int) {
 				inOrderResult = append(inOrderResult, i)
 			})
+
+			if bst.Len() != len(tc.inOrderExpected) {
+				t.Errorf("Expected Len value to be '%v'. Got '%v'", len(tc.inOrderExpected), bst.Len())
+			}
 
 			if len(inOrderResult) != len(tc.inOrderExpected) {
 				t.Fatalf("Expected in order traversal to be %v. Got %v", tc.inOrderExpected, inOrderResult)

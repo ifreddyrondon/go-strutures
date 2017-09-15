@@ -20,22 +20,29 @@ func NewNode(value int) *Node {
 // Read/Write operations are not safe for concurrent mutation by multiple
 // goroutines.
 type BST struct {
-	Root *Node
+	Root   *Node
+	length int
 }
 
 // New build a BST with the root.
 func New(value int) *BST {
-	return &BST{NewNode(value)}
+	return &BST{NewNode(value), 0}
 }
 
 // Insert insert an item in the right position in the tree. Return true if the value was inserted and false otherwise
 func (t *BST) Insert(value int) bool {
 	node := NewNode(value)
+	inserted := true
 	if t.Root == nil {
 		t.Root = node
-		return true
+		t.length++
+		return inserted
 	}
-	return insertNode(t.Root, node)
+
+	if inserted = insertNode(t.Root, node); inserted {
+		t.length++
+	}
+	return inserted
 }
 
 func insertNode(root, newNode *Node) bool {
@@ -171,6 +178,9 @@ func (t *BST) Has(value int) bool {
 func (t *BST) Remove(value int) bool {
 	var removed bool
 	t.Root, removed = removeNode(t.Root, value)
+	if removed {
+		t.length--
+	}
 	return removed
 }
 
@@ -211,4 +221,9 @@ func removeNode(node *Node, value int) (*Node, bool) {
 	node.Value = replacement.Value
 	node.Left, removed = removeNode(node.Left, node.Value)
 	return node, removed
+}
+
+// Len returns the number of items currently in the tree.
+func (t *BST) Len() int {
+	return t.length
 }
