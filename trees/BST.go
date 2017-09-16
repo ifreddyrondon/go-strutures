@@ -31,7 +31,7 @@ func NewNode(value int) *Node {
 // Read/Write operations are not safe for concurrent mutation by multiple
 // goroutines.
 type BST struct {
-	Root   *Node
+	root   *Node
 	length int
 }
 
@@ -40,17 +40,22 @@ func New(value int) *BST {
 	return &BST{NewNode(value), 0}
 }
 
+// Root returns the root node of the tree.
+func (t *BST) Root() *Node {
+	return t.root
+}
+
 // Insert insert an item in the right position in the tree. Return true if the value was inserted and false otherwise
 func (t *BST) Insert(value int) bool {
 	node := NewNode(value)
 	inserted := true
-	if t.Root == nil {
-		t.Root = node
+	if t.root == nil {
+		t.root = node
 		t.length++
 		return inserted
 	}
 
-	if inserted = insertNode(t.Root, node); inserted {
+	if inserted = insertNode(t.root, node); inserted {
 		t.length++
 	}
 	return inserted
@@ -78,7 +83,7 @@ func insertNode(root, newNode *Node) bool {
 
 // InOrderTraverse visits all the nodes in order
 func (t *BST) InOrderTraverse(f func(int)) {
-	inOrderTraverse(t.Root, f)
+	inOrderTraverse(t.root, f)
 }
 
 func inOrderTraverse(node *Node, f func(int)) {
@@ -93,7 +98,7 @@ func inOrderTraverse(node *Node, f func(int)) {
 
 // PreOrderTraverse visits all the nodes in pre order
 func (t *BST) PreOrderTraverse(f func(int)) {
-	preOrderTraverse(t.Root, f)
+	preOrderTraverse(t.root, f)
 }
 
 func preOrderTraverse(node *Node, f func(int)) {
@@ -108,7 +113,7 @@ func preOrderTraverse(node *Node, f func(int)) {
 
 // PostOrderTraverse visits all the nodes in post order
 func (t *BST) PostOrderTraverse(f func(int)) {
-	postOrderTraverse(t.Root, f)
+	postOrderTraverse(t.root, f)
 }
 
 func postOrderTraverse(node *Node, f func(int)) {
@@ -123,7 +128,7 @@ func postOrderTraverse(node *Node, f func(int)) {
 
 // Min returns the node with minimal value stored in the tree
 func (t *BST) Min() *Node {
-	return minNode(t.Root)
+	return minNode(t.root)
 }
 
 func minNode(node *Node) *Node {
@@ -142,7 +147,7 @@ func minNode(node *Node) *Node {
 
 // Max returns the node with maximum value stored in the tree
 func (t *BST) Max() *Node {
-	return maxNode(t.Root)
+	return maxNode(t.root)
 }
 
 func maxNode(node *Node) *Node {
@@ -161,7 +166,7 @@ func maxNode(node *Node) *Node {
 
 // Search returns the node if the value exists in the tree
 func (t *BST) Search(value int) *Node {
-	return searchNode(t.Root, value)
+	return searchNode(t.root, value)
 }
 
 func searchNode(node *Node, value int) *Node {
@@ -188,7 +193,7 @@ func (t *BST) Has(value int) bool {
 // Remove remove an item from the tree. Return true if the value was removed and false otherwise.
 func (t *BST) Remove(value int) bool {
 	var removed bool
-	t.Root, removed = removeNode(t.Root, value)
+	t.root, removed = removeNode(t.root, value)
 	if removed {
 		t.length--
 	}
@@ -241,7 +246,7 @@ func (t *BST) Len() int {
 
 // Print prints a visual representation of the tree into an io.Writer
 func (t *BST) Print(w io.Writer) {
-	print(w, t.Root, 0)
+	print(w, t.root, 0)
 }
 
 func print(w io.Writer, n *Node, level int) {
