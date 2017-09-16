@@ -246,10 +246,10 @@ func (t *BST) Len() int {
 
 // Print prints a visual representation of the tree into an io.Writer
 func (t *BST) Print(w io.Writer) {
-	print(w, t.root, 0)
+	printTree(w, t.root, 0)
 }
 
-func print(w io.Writer, n *Node, level int) {
+func printTree(w io.Writer, n *Node, level int) {
 	if n != nil {
 		format := bytes.NewBufferString("")
 		for i := 0; i < level; i++ {
@@ -257,8 +257,8 @@ func print(w io.Writer, n *Node, level int) {
 		}
 		format.WriteString(PrintNode)
 		level++
-		print(w, n.Right, level)
+		printTree(w, n.Right, level)
 		fmt.Fprintf(w, "%s%d\n", format.String(), n.Value)
-		print(w, n.Left, level)
+		printTree(w, n.Left, level)
 	}
 }
