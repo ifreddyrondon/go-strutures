@@ -1,5 +1,16 @@
 package trees
 
+import (
+	"bytes"
+	"fmt"
+	"io"
+)
+
+const (
+	PrintLevelSeparator = "       "
+	PrintNode           = "-["
+)
+
 // Node is a single node that compose a tree.
 type Node struct {
 	Value int
@@ -226,4 +237,23 @@ func removeNode(node *Node, value int) (*Node, bool) {
 // Len returns the number of items currently in the tree.
 func (t *BST) Len() int {
 	return t.length
+}
+
+// Print prints a visual representation of the tree into an io.Writer
+func (t *BST) Print(w io.Writer) {
+	print(w, t.Root, 0)
+}
+
+func print(w io.Writer, n *Node, level int) {
+	if n != nil {
+		format := bytes.NewBufferString("")
+		for i := 0; i < level; i++ {
+			format.WriteString(PrintLevelSeparator)
+		}
+		format.WriteString(PrintNode)
+		level++
+		print(w, n.Right, level)
+		fmt.Fprintf(w, "%s%d\n", format.String(), n.Value)
+		print(w, n.Left, level)
+	}
 }
