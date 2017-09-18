@@ -39,3 +39,10 @@ func printTree(w io.Writer, n *Node, level int) {
 		printTree(w, n.Left, level)
 	}
 }
+
+func intMax(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
+}

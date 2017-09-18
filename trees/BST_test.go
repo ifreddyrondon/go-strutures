@@ -562,3 +562,31 @@ func TestRemoveNode(t *testing.T) {
 		})
 	}
 }
+
+func TestTreeHeight(t *testing.T) {
+	tt := []struct {
+		name         string
+		insertValues []int
+		expected     int
+	}{
+		{"empty tree", []int{}, 0},
+		{"only root", []int{1}, 1},
+		{"one left node", []int{2, 1}, 2},
+		{"one right node", []int{3, 5}, 2},
+		{"tree (linked list) to right", []int{5, 6, 7, 8, 9, 10}, 6},
+		{"tree (linked list) to left", []int{5, 4, 3, 2, 1}, 5},
+		{"unbalanced bst", []int{8, 3, 10, 1, 6, 4, 7}, 4},
+	}
+
+	for _, tc := range tt {
+		t.Run(tc.name, func(t *testing.T) {
+			bst := trees.BST{}
+			fillTreeWithList(&bst, tc.insertValues)
+
+			result := bst.Height()
+			if result != tc.expected {
+				t.Fatalf("Expected tree height to be %v. Got %v", tc.expected, result)
+			}
+		})
+	}
+}
