@@ -16,7 +16,7 @@ type BST struct {
 
 // New build a BST with the root.
 func New(value int) *BST {
-	return &BST{NewNode(value), 0}
+	return &BST{NewBNode(value), 0}
 }
 
 // Root returns the root node of the tree.
@@ -26,7 +26,7 @@ func (t BST) Root() *BNode {
 
 // Insert insert an item in the right position in the tree. Return true if the value was inserted and false otherwise
 func (t *BST) Insert(value int) bool {
-	node := NewNode(value)
+	node := NewBNode(value)
 	inserted := true
 	if t.root == nil {
 		t.root = node

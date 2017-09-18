@@ -8,17 +8,17 @@ import (
 
 func TestNewNode(t *testing.T) {
 	var value int
-	node := binarytrees.NewNode(value)
+	node := binarytrees.NewBNode(value)
 
 	if node.Value != value {
-		t.Errorf("Expected NewNode value to be '%v'. Got '%v'", value, node.Value)
+		t.Errorf("Expected NewBNode value to be '%v'. Got '%v'", value, node.Value)
 	}
 
 	if node.Left != nil {
-		t.Errorf("Expected NewNode Left to be nil. Got '%v'", node.Left)
+		t.Errorf("Expected NewBNode Left to be nil. Got '%v'", node.Left)
 	}
 
 	if node.Right != nil {
-		t.Errorf("Expected NewNode Left to be nil. Got '%v'", node.Left)
+		t.Errorf("Expected NewBNode Left to be nil. Got '%v'", node.Left)
 	}
 }

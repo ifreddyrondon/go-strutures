@@ -250,11 +250,11 @@ func TestGetMin(t *testing.T) {
 		insertValues []int
 		expected     *binarytrees.BNode
 	}{
-		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, &binarytrees.BNode{Value: 1, Left: nil, Right: nil}},
-		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, &binarytrees.BNode{Value: 1, Left: nil, Right: nil}},
-		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, &binarytrees.BNode{Value: 5, Left: nil, Right: nil}},
-		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, &binarytrees.BNode{Value: 1, Left: nil, Right: nil}},
-		{"only root", []int{5}, &binarytrees.BNode{Value: 5, Left: nil, Right: nil}},
+		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, binarytrees.NewBNode(1)},
+		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, binarytrees.NewBNode(1)},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, binarytrees.NewBNode(5)},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, binarytrees.NewBNode(1)},
+		{"only root", []int{5}, binarytrees.NewBNode(5)},
 	}
 
 	for _, tc := range tt {
@@ -284,11 +284,11 @@ func TestGetMax(t *testing.T) {
 		insertValues []int
 		expected     *binarytrees.BNode
 	}{
-		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, &binarytrees.BNode{Value: 9, Left: nil, Right: nil}},
-		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, &binarytrees.BNode{Value: 9, Left: nil, Right: nil}},
-		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, &binarytrees.BNode{Value: 10, Left: nil, Right: nil}},
-		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, &binarytrees.BNode{Value: 5, Left: nil, Right: nil}},
-		{"only root", []int{5}, &binarytrees.BNode{Value: 5, Left: nil, Right: nil}},
+		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, binarytrees.NewBNode(9)},
+		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, binarytrees.NewBNode(9)},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, binarytrees.NewBNode(10)},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, binarytrees.NewBNode(5)},
+		{"only root", []int{5}, binarytrees.NewBNode(5)},
 	}
 
 	for _, tc := range tt {
@@ -319,11 +319,11 @@ func TestSearchNode(t *testing.T) {
 		searchValue  int
 		expected     *binarytrees.BNode
 	}{
-		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, 4, &binarytrees.BNode{Value: 4, Left: nil, Right: nil}},
-		{"search duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, 1, &binarytrees.BNode{Value: 1, Left: nil, Right: nil}},
-		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, 10, &binarytrees.BNode{Value: 10, Left: nil, Right: nil}},
-		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, 1, &binarytrees.BNode{Value: 1, Left: nil, Right: nil}},
-		{"only root", []int{5}, 5, &binarytrees.BNode{Value: 5, Left: nil, Right: nil}},
+		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, 4, binarytrees.NewBNode(4)},
+		{"search duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, 1, binarytrees.NewBNode(1)},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, 10, binarytrees.NewBNode(10)},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, 1, binarytrees.NewBNode(1)},
+		{"only root", []int{5}, 5, binarytrees.NewBNode(5)},
 	}
 
 	for _, tc := range tt {

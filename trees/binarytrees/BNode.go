@@ -7,7 +7,7 @@ type BNode struct {
 	Right *BNode
 }
 
-// NewNode is a helper function that given a value return a node.
-func NewNode(value int) *BNode {
+// NewBNode is a helper function that given a value return a node.
+func NewBNode(value int) *BNode {
 	return &BNode{value, nil, nil}
 }
