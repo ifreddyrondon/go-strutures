@@ -1,5 +1,7 @@
 package binarytrees
 
+import "io"
+
 // BST is an implementation of a Binary search tree
 //
 // BST stores Item instances in an ordered structure, allowing easy insertion,
@@ -224,4 +226,9 @@ func (t *BST) Len() int {
 // Height return the height of a tree
 func (t *BST) Height() int {
 	return t.root.Height()
+}
+
+// Print prints a visual representation of the tree into an io.Writer
+func (t *BST) Print(w io.Writer) {
+	PrintTreeFromNode(w, t.Root(), 0)
 }

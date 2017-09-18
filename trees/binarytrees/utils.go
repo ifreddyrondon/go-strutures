@@ -21,12 +21,7 @@ func NewRandBST(length int) *BST {
 	return t
 }
 
-// Print prints a visual representation of the tree into an io.Writer
-func Print(w io.Writer, t BinaryTree) {
-	printTree(w, t.Root(), 0)
-}
-
-func printTree(w io.Writer, n *BNode, level int) {
+func PrintTreeFromNode(w io.Writer, n *BNode, level int) {
 	if n != nil {
 		format := bytes.NewBufferString("")
 		for i := 0; i < level; i++ {
@@ -34,9 +29,9 @@ func printTree(w io.Writer, n *BNode, level int) {
 		}
 		format.WriteString(PrintNode)
 		level++
-		printTree(w, n.Right, level)
+		PrintTreeFromNode(w, n.Right, level)
 		fmt.Fprintf(w, "%s%d\n", format.String(), n.Value)
-		printTree(w, n.Left, level)
+		PrintTreeFromNode(w, n.Left, level)
 	}
 }
 
