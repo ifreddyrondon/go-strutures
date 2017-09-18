@@ -21,6 +21,7 @@ func NewRandBST(length int) *BST {
 	return t
 }
 
+// PrintTreeFromNode prints a visual representation of the binary tree from a given node into an io.Writer
 func PrintTreeFromNode(w io.Writer, n *BNode, level int) {
 	if n != nil {
 		format := bytes.NewBufferString("")

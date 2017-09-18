@@ -11,16 +11,3 @@ type BNode struct {
 func NewNode(value int) *BNode {
 	return &BNode{value, nil, nil}
 }
-
-// Height return the height of a binary node
-func (n *BNode) Height() int {
-	return nodeHeight(n)
-}
-
-func nodeHeight(node *BNode) int {
-	if node == nil {
-		return 0
-	}
-
-	return intMax(nodeHeight(node.Left), nodeHeight(node.Right)) + 1
-}
