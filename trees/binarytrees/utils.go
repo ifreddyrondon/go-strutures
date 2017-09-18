@@ -1,4 +1,4 @@
-package trees
+package binarytrees
 
 import (
 	"bytes"
@@ -22,11 +22,11 @@ func NewRandBST(length int) *BST {
 }
 
 // Print prints a visual representation of the tree into an io.Writer
-func Print(w io.Writer, t Tree) {
+func Print(w io.Writer, t BinaryTree) {
 	printTree(w, t.Root(), 0)
 }
 
-func printTree(w io.Writer, n *Node, level int) {
+func printTree(w io.Writer, n *BNode, level int) {
 	if n != nil {
 		format := bytes.NewBufferString("")
 		for i := 0; i < level; i++ {

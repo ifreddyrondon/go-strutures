@@ -1,4 +1,4 @@
-package trees
+package binarytrees
 
 // BST is an implementation of a Binary search tree
 //
@@ -8,7 +8,7 @@ package trees
 // Read/Write operations are not safe for concurrent mutation by multiple
 // goroutines.
 type BST struct {
-	root   *Node
+	root   *BNode
 	length int
 }
 
@@ -18,7 +18,7 @@ func New(value int) *BST {
 }
 
 // Root returns the root node of the tree.
-func (t BST) Root() *Node {
+func (t BST) Root() *BNode {
 	return t.root
 }
 
@@ -38,7 +38,7 @@ func (t *BST) Insert(value int) bool {
 	return inserted
 }
 
-func insertNode(root, newNode *Node) bool {
+func insertNode(root, newNode *BNode) bool {
 	if root.Value == newNode.Value {
 		return false
 	}
@@ -63,7 +63,7 @@ func (t *BST) InOrderTraverse(f func(int)) {
 	inOrderTraverse(t.root, f)
 }
 
-func inOrderTraverse(node *Node, f func(int)) {
+func inOrderTraverse(node *BNode, f func(int)) {
 	if node == nil {
 		return
 	}
@@ -78,7 +78,7 @@ func (t *BST) PreOrderTraverse(f func(int)) {
 	preOrderTraverse(t.root, f)
 }
 
-func preOrderTraverse(node *Node, f func(int)) {
+func preOrderTraverse(node *BNode, f func(int)) {
 	if node == nil {
 		return
 	}
@@ -93,7 +93,7 @@ func (t *BST) PostOrderTraverse(f func(int)) {
 	postOrderTraverse(t.root, f)
 }
 
-func postOrderTraverse(node *Node, f func(int)) {
+func postOrderTraverse(node *BNode, f func(int)) {
 	if node == nil {
 		return
 	}
@@ -104,11 +104,11 @@ func postOrderTraverse(node *Node, f func(int)) {
 }
 
 // Min returns the node with minimal value stored in the tree
-func (t *BST) Min() *Node {
+func (t *BST) Min() *BNode {
 	return minNode(t.root)
 }
 
-func minNode(node *Node) *Node {
+func minNode(node *BNode) *BNode {
 	if node == nil {
 		return nil
 	}
@@ -123,11 +123,11 @@ func minNode(node *Node) *Node {
 }
 
 // Max returns the node with maximum value stored in the tree
-func (t *BST) Max() *Node {
+func (t *BST) Max() *BNode {
 	return maxNode(t.root)
 }
 
-func maxNode(node *Node) *Node {
+func maxNode(node *BNode) *BNode {
 	if node == nil {
 		return nil
 	}
@@ -142,11 +142,11 @@ func maxNode(node *Node) *Node {
 }
 
 // Search returns the node if the value exists in the tree
-func (t *BST) Search(value int) *Node {
+func (t *BST) Search(value int) *BNode {
 	return searchNode(t.root, value)
 }
 
-func searchNode(node *Node, value int) *Node {
+func searchNode(node *BNode, value int) *BNode {
 	if node == nil {
 		return nil
 	}
@@ -177,7 +177,7 @@ func (t *BST) Remove(value int) bool {
 	return removed
 }
 
-func removeNode(node *Node, value int) (*Node, bool) {
+func removeNode(node *BNode, value int) (*BNode, bool) {
 	var removed bool
 	if node == nil {
 		return nil, removed
@@ -226,7 +226,7 @@ func (t *BST) Height() int {
 	return nodeHeight(t.root)
 }
 
-func nodeHeight(node *Node) int {
+func nodeHeight(node *BNode) int {
 	if node == nil {
 		return 0
 	}

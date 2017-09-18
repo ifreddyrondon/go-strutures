@@ -1,13 +1,19 @@
-package trees_test
+package binarytrees_test
 
 import (
 	"testing"
 
-	"github.com/ifreddyrondon/go-strutures/trees"
+	"github.com/ifreddyrondon/go-strutures/trees/binarytrees"
 )
 
+func fillTreeWithList(bst *binarytrees.BST, list []int) {
+	for _, v := range list {
+		bst.Insert(v)
+	}
+}
+
 func TestNewConstructor(t *testing.T) {
-	bst := trees.New(1)
+	bst := binarytrees.New(1)
 	if bst.Root() == nil {
 		t.Error("Expected root to be not nil")
 	}
@@ -57,7 +63,7 @@ func TestInsert(t *testing.T) {
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
 
-			bst := trees.BST{}
+			bst := binarytrees.BST{}
 
 			// Insert tree nodes
 			for index, nodeValue := range tc.insertValues {
@@ -97,7 +103,7 @@ func TestInsert(t *testing.T) {
 }
 
 // If value is less than node value' then left node value'' or the children of left node should be value and vice versa
-func checkValueInsert(t *testing.T, parentNode *trees.Node, value int) {
+func checkValueInsert(t *testing.T, parentNode *binarytrees.BNode, value int) {
 	if value < parentNode.Value {
 		if parentNode.Left.Value != value {
 			checkValueInsert(t, parentNode.Left, value)
@@ -114,7 +120,7 @@ func checkValueInsert(t *testing.T, parentNode *trees.Node, value int) {
 }
 
 // If the node value' is equal to the value, then their children values should be different from parent value or nil
-func checkDuplicateValueInsert(t *testing.T, parentNode *trees.Node, value int) {
+func checkDuplicateValueInsert(t *testing.T, parentNode *binarytrees.BNode, value int) {
 	if parentNode == nil {
 		return
 	}
@@ -136,12 +142,6 @@ func checkDuplicateValueInsert(t *testing.T, parentNode *trees.Node, value int) 
 	}
 }
 
-func fillTreeWithList(bst *trees.BST, list []int) {
-	for _, v := range list {
-		bst.Insert(v)
-	}
-}
-
 func TestInOrderTraverse(t *testing.T) {
 	tt := []struct {
 		name         string
@@ -158,7 +158,7 @@ func TestInOrderTraverse(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			bst := trees.BST{}
+			bst := binarytrees.BST{}
 			fillTreeWithList(&bst, tc.insertValues)
 
 			var result []int
@@ -191,7 +191,7 @@ func TestPreOrderTraverse(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			bst := trees.BST{}
+			bst := binarytrees.BST{}
 			fillTreeWithList(&bst, tc.insertValues)
 
 			var result []int
@@ -224,7 +224,7 @@ func TestPostOrderTraverse(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			bst := trees.BST{}
+			bst := binarytrees.BST{}
 			fillTreeWithList(&bst, tc.insertValues)
 
 			var result []int
@@ -245,18 +245,18 @@ func TestGetMin(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
-		expected     *trees.Node
+		expected     *binarytrees.BNode
 	}{
-		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, &trees.Node{Value: 1, Left: nil, Right: nil}},
-		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, &trees.Node{Value: 1, Left: nil, Right: nil}},
-		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, &trees.Node{Value: 5, Left: nil, Right: nil}},
-		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, &trees.Node{Value: 1, Left: nil, Right: nil}},
-		{"only root", []int{5}, &trees.Node{Value: 5, Left: nil, Right: nil}},
+		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, &binarytrees.BNode{Value: 1, Left: nil, Right: nil}},
+		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, &binarytrees.BNode{Value: 1, Left: nil, Right: nil}},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, &binarytrees.BNode{Value: 5, Left: nil, Right: nil}},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, &binarytrees.BNode{Value: 1, Left: nil, Right: nil}},
+		{"only root", []int{5}, &binarytrees.BNode{Value: 5, Left: nil, Right: nil}},
 	}
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			bst := trees.BST{}
+			bst := binarytrees.BST{}
 			fillTreeWithList(&bst, tc.insertValues)
 
 			result := bst.Min()
@@ -268,7 +268,7 @@ func TestGetMin(t *testing.T) {
 }
 
 func TestGetMinForNilBST(t *testing.T) {
-	bst := trees.BST{}
+	bst := binarytrees.BST{}
 	result := bst.Min()
 	if result != nil {
 		t.Errorf("Expected min to be '%v'. Got '%v'", nil, result)
@@ -279,18 +279,18 @@ func TestGetMax(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
-		expected     *trees.Node
+		expected     *binarytrees.BNode
 	}{
-		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, &trees.Node{Value: 9, Left: nil, Right: nil}},
-		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, &trees.Node{Value: 9, Left: nil, Right: nil}},
-		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, &trees.Node{Value: 10, Left: nil, Right: nil}},
-		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, &trees.Node{Value: 5, Left: nil, Right: nil}},
-		{"only root", []int{5}, &trees.Node{Value: 5, Left: nil, Right: nil}},
+		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, &binarytrees.BNode{Value: 9, Left: nil, Right: nil}},
+		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, &binarytrees.BNode{Value: 9, Left: nil, Right: nil}},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, &binarytrees.BNode{Value: 10, Left: nil, Right: nil}},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, &binarytrees.BNode{Value: 5, Left: nil, Right: nil}},
+		{"only root", []int{5}, &binarytrees.BNode{Value: 5, Left: nil, Right: nil}},
 	}
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			bst := trees.BST{}
+			bst := binarytrees.BST{}
 			fillTreeWithList(&bst, tc.insertValues)
 
 			result := bst.Max()
@@ -302,7 +302,7 @@ func TestGetMax(t *testing.T) {
 }
 
 func TestGetMaxForNilBST(t *testing.T) {
-	bst := trees.BST{}
+	bst := binarytrees.BST{}
 	result := bst.Max()
 	if result != nil {
 		t.Errorf("Expected max to be '%v'. Got '%v'", nil, result)
@@ -314,18 +314,18 @@ func TestSearchNode(t *testing.T) {
 		name         string
 		insertValues []int
 		searchValue  int
-		expected     *trees.Node
+		expected     *binarytrees.BNode
 	}{
-		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, 4, &trees.Node{Value: 4, Left: nil, Right: nil}},
-		{"search duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, 1, &trees.Node{Value: 1, Left: nil, Right: nil}},
-		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, 10, &trees.Node{Value: 10, Left: nil, Right: nil}},
-		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, 1, &trees.Node{Value: 1, Left: nil, Right: nil}},
-		{"only root", []int{5}, 5, &trees.Node{Value: 5, Left: nil, Right: nil}},
+		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, 4, &binarytrees.BNode{Value: 4, Left: nil, Right: nil}},
+		{"search duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, 1, &binarytrees.BNode{Value: 1, Left: nil, Right: nil}},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, 10, &binarytrees.BNode{Value: 10, Left: nil, Right: nil}},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, 1, &binarytrees.BNode{Value: 1, Left: nil, Right: nil}},
+		{"only root", []int{5}, 5, &binarytrees.BNode{Value: 5, Left: nil, Right: nil}},
 	}
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			bst := trees.BST{}
+			bst := binarytrees.BST{}
 			fillTreeWithList(&bst, tc.insertValues)
 
 			result := bst.Search(tc.searchValue)
@@ -348,7 +348,7 @@ func TestSearchNilReturn(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			bst := trees.BST{}
+			bst := binarytrees.BST{}
 			fillTreeWithList(&bst, tc.insertValues)
 
 			result := bst.Search(tc.searchValue)
@@ -377,7 +377,7 @@ func TestHasNode(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			bst := trees.BST{}
+			bst := binarytrees.BST{}
 			fillTreeWithList(&bst, tc.insertValues)
 
 			result := bst.Has(tc.searchValue)
@@ -532,7 +532,7 @@ func TestRemoveNode(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			bst := trees.BST{}
+			bst := binarytrees.BST{}
 			fillTreeWithList(&bst, tc.insertValues)
 
 			result := bst.Remove(tc.deleteValue)
@@ -580,7 +580,7 @@ func TestTreeHeight(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			bst := trees.BST{}
+			bst := binarytrees.BST{}
 			fillTreeWithList(&bst, tc.insertValues)
 
 			result := bst.Height()
