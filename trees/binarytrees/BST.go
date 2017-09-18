@@ -223,13 +223,5 @@ func (t *BST) Len() int {
 
 // Height return the height of a tree
 func (t *BST) Height() int {
-	return nodeHeight(t.root)
-}
-
-func nodeHeight(node *BNode) int {
-	if node == nil {
-		return 0
-	}
-
-	return intMax(nodeHeight(node.Left), nodeHeight(node.Right)) + 1
+	return t.root.Height()
 }
