@@ -150,8 +150,8 @@ func TestInOrderTraverse(t *testing.T) {
 	}{
 		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, []int{1, 3, 4, 5, 6, 7, 9}},
 		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, []int{1, 3, 5, 7, 9}},
-		{"bst unbalanced to right", []int{5, 6, 7, 8, 9, 10}, []int{5, 6, 7, 8, 9, 10}},
-		{"bst unbalanced to left", []int{5, 4, 3, 2, 1}, []int{1, 2, 3, 4, 5}},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, []int{5, 6, 7, 8, 9, 10}},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, []int{1, 2, 3, 4, 5}},
 		{"only root", []int{5}, []int{5}},
 		{"nil root", []int{}, []int{}},
 	}
@@ -183,8 +183,8 @@ func TestPreOrderTraverse(t *testing.T) {
 	}{
 		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, []int{5, 3, 1, 4, 7, 6, 9}},
 		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, []int{5, 3, 1, 7, 9}},
-		{"bst unbalanced to right", []int{5, 6, 7, 8, 9, 10}, []int{5, 6, 7, 8, 9, 10}},
-		{"bst unbalanced to left", []int{5, 4, 3, 2, 1}, []int{5, 4, 3, 2, 1}},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, []int{5, 6, 7, 8, 9, 10}},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, []int{5, 4, 3, 2, 1}},
 		{"only root", []int{5}, []int{5}},
 		{"nil root", []int{}, []int{}},
 	}
@@ -216,8 +216,8 @@ func TestPostOrderTraverse(t *testing.T) {
 	}{
 		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, []int{1, 4, 3, 6, 9, 7, 5}},
 		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, []int{1, 3, 9, 7, 5}},
-		{"bst unbalanced to right", []int{5, 6, 7, 8, 9, 10}, []int{10, 9, 8, 7, 6, 5}},
-		{"bst unbalanced to left", []int{5, 4, 3, 2, 1}, []int{1, 2, 3, 4, 5}},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, []int{10, 9, 8, 7, 6, 5}},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, []int{1, 2, 3, 4, 5}},
 		{"only root", []int{5}, []int{5}},
 		{"nil root", []int{}, []int{}},
 	}
@@ -249,8 +249,8 @@ func TestGetMin(t *testing.T) {
 	}{
 		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, &trees.Node{Value: 1, Left: nil, Right: nil}},
 		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, &trees.Node{Value: 1, Left: nil, Right: nil}},
-		{"bst unbalanced to right", []int{5, 6, 7, 8, 9, 10}, &trees.Node{Value: 5, Left: nil, Right: nil}},
-		{"bst unbalanced to left", []int{5, 4, 3, 2, 1}, &trees.Node{Value: 1, Left: nil, Right: nil}},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, &trees.Node{Value: 5, Left: nil, Right: nil}},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, &trees.Node{Value: 1, Left: nil, Right: nil}},
 		{"only root", []int{5}, &trees.Node{Value: 5, Left: nil, Right: nil}},
 	}
 
@@ -283,8 +283,8 @@ func TestGetMax(t *testing.T) {
 	}{
 		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, &trees.Node{Value: 9, Left: nil, Right: nil}},
 		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, &trees.Node{Value: 9, Left: nil, Right: nil}},
-		{"bst unbalanced to right", []int{5, 6, 7, 8, 9, 10}, &trees.Node{Value: 10, Left: nil, Right: nil}},
-		{"bst unbalanced to left", []int{5, 4, 3, 2, 1}, &trees.Node{Value: 5, Left: nil, Right: nil}},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, &trees.Node{Value: 10, Left: nil, Right: nil}},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, &trees.Node{Value: 5, Left: nil, Right: nil}},
 		{"only root", []int{5}, &trees.Node{Value: 5, Left: nil, Right: nil}},
 	}
 
@@ -318,8 +318,8 @@ func TestSearchNode(t *testing.T) {
 	}{
 		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, 4, &trees.Node{Value: 4, Left: nil, Right: nil}},
 		{"search duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, 1, &trees.Node{Value: 1, Left: nil, Right: nil}},
-		{"bst unbalanced to right", []int{5, 6, 7, 8, 9, 10}, 10, &trees.Node{Value: 10, Left: nil, Right: nil}},
-		{"bst unbalanced to left", []int{5, 4, 3, 2, 1}, 1, &trees.Node{Value: 1, Left: nil, Right: nil}},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, 10, &trees.Node{Value: 10, Left: nil, Right: nil}},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, 1, &trees.Node{Value: 1, Left: nil, Right: nil}},
 		{"only root", []int{5}, 5, &trees.Node{Value: 5, Left: nil, Right: nil}},
 	}
 
@@ -368,8 +368,8 @@ func TestHasNode(t *testing.T) {
 	}{
 		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, 4, true},
 		{"search duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, 1, true},
-		{"bst unbalanced to right", []int{5, 6, 7, 8, 9, 10}, 10, true},
-		{"bst unbalanced to left", []int{5, 4, 3, 2, 1}, 1, true},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, 10, true},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, 1, true},
 		{"only root", []int{5}, 5, true},
 		{"not found", []int{5, 3, 1, 4, 7, 9, 6}, 2, false},
 		{"nil tree", []int{}, 1, false},
@@ -433,14 +433,14 @@ func TestRemoveNode(t *testing.T) {
 			true,
 		},
 		{
-			"remove leaf node when tree unbalanced to left",
+			"remove leaf node when tree tree (linked list) to left",
 			[]int{5, 4, 3, 2, 1},
 			1,
 			[]int{2, 3, 4, 5},
 			true,
 		},
 		{
-			"remove leaf node when tree unbalanced to right",
+			"remove leaf node when tree tree (linked list) to right",
 			[]int{5, 6, 7, 8, 9, 10},
 			10,
 			[]int{5, 6, 7, 8, 9},
@@ -476,14 +476,14 @@ func TestRemoveNode(t *testing.T) {
 			true,
 		},
 		{
-			"remove root node when tree unbalanced to left",
+			"remove root node when tree tree (linked list) to left",
 			[]int{5, 4, 3, 2, 1},
 			5,
 			[]int{1, 2, 3, 4},
 			true,
 		},
 		{
-			"remove leaf node when tree unbalanced to right",
+			"remove leaf node when tree tree (linked list) to right",
 			[]int{5, 6, 7, 8, 9, 10},
 			5,
 			[]int{6, 7, 8, 9, 10},
