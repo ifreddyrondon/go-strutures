@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/ifreddyrondon/go-strutures/trees/binarytrees"
+	"github.com/ifreddyrondon/gostrutures/trees/binarytrees"
 )
 
 func fillTreeWithList(bst *binarytrees.BST, list []int) {

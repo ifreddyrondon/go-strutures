@@ -3,7 +3,7 @@ package binarytrees_test
 import (
 	"testing"
 
-	"github.com/ifreddyrondon/go-strutures/trees/binarytrees"
+	"github.com/ifreddyrondon/gostrutures/trees/binarytrees"
 )
 
 func TestNewNode(t *testing.T) {
