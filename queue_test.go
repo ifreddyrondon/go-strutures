@@ -133,3 +133,26 @@ func TestQueue_PopFromEmptyQueue(t *testing.T) {
 		t.Errorf("Expected queue size after pop to be '%v'. Got '%v'", 0, queue.Size())
 	}
 }
+
+func TestQueue_IsEmpty(t *testing.T) {
+	tt := []struct {
+		name         string
+		insertValues []int
+		expected     bool
+	}{
+		{"empty queue", []int{}, true},
+		{"queue with elements", []int{3, 2, 3, 4}, false},
+	}
+
+	for _, tc := range tt {
+		queue := new(gostrutures.Queue)
+		// Insert tree nodes
+		for _, nodeValue := range tc.insertValues {
+			queue.Push(nodeValue)
+		}
+
+		if queue.IsEmpty() != tc.expected {
+			t.Errorf("Expected queue IsEmpty to be '%v'. Got '%v'", tc.expected, queue.IsEmpty())
+		}
+	}
+}

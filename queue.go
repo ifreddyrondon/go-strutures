@@ -34,3 +34,8 @@ func (q *Queue) Peek() Item {
 func (q *Queue) Size() int {
 	return len(*q)
 }
+
+// IsEmpty returns true if the queue is empty
+func (q *Queue) IsEmpty() bool {
+	return len(*q) == 0
+}
