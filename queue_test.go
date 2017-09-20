@@ -64,7 +64,6 @@ func TestQueue_Size(t *testing.T) {
 	}
 }
 
-
 func TestQueue_Peek(t *testing.T) {
 	// GIVEN
 	queue := new(gostrutures.Queue)
@@ -98,4 +97,39 @@ func TestQueue_PeekFromEmptyQueue(t *testing.T) {
 	if queue.Size() != 0 {
 		t.Errorf("Expected queue size after pop to be '%v'. Got '%v'", 0, queue.Size())
 	}
+}
+
+func TestQueue_Pop(t *testing.T) {
+	// Given
+	queue := new(gostrutures.Queue)
+	popElement, lenAfterPop := 3, 3
+	// Insert tree nodes
+	for _, nodeValue := range []int{3, 2, 5, 4} {
+		queue.Push(nodeValue)
+	}
+	// When pop
+	result := queue.Pop()
+	// Then
+	if result != popElement {
+		t.Errorf("Expected pop element to be '%v'. Got '%v'", popElement, result)
+	}
+
+	if queue.Size() != lenAfterPop {
+		t.Errorf("Expected queue size after pop to be '%v'. Got '%v'", lenAfterPop, queue.Size())
+	}
+}
+
+func TestQueue_PopFromEmptyQueue(t *testing.T) {
+	// Given
+	queue := new(gostrutures.Queue)
+	// When pop
+	result := queue.Pop()
+	// Then
+	if result != nil {
+		t.Errorf("Expected pop element to be nil. Got '%v'", result)
+	}
+
+	//	if queue.Size() != 0 {
+	//		t.Errorf("Expected queue size after pop to be '%v'. Got '%v'", 0, queue.Size())
+	//	}
 }

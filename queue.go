@@ -12,6 +12,14 @@ func (q *Queue) Push(value Item) {
 	*q = append(*q, value)
 }
 
+//Pop retrieves and removes the head of this queue, or returns nil if this queue is empty.
+func (q *Queue) Pop() Item {
+	item := q.Peek()
+	if item != nil {
+		*q = (*q)[1:q.Size()]
+	}
+	return item
+}
 
 // Peek returns but does not remove, the head of this queue, or returns nil if this queue is empty.
 func (q *Queue) Peek() Item {
