@@ -129,7 +129,7 @@ func TestQueue_PopFromEmptyQueue(t *testing.T) {
 		t.Errorf("Expected pop element to be nil. Got '%v'", result)
 	}
 
-	//	if queue.Size() != 0 {
-	//		t.Errorf("Expected queue size after pop to be '%v'. Got '%v'", 0, queue.Size())
-	//	}
+	if queue.Size() != 0 {
+		t.Errorf("Expected queue size after pop to be '%v'. Got '%v'", 0, queue.Size())
+	}
 }
