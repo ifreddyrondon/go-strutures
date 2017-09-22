@@ -1,6 +1,10 @@
 package binarytrees
 
-import "io"
+import (
+	"io"
+
+	"github.com/ifreddyrondon/gostrutures"
+)
 
 // BST is an implementation of a Binary search tree
 //
@@ -103,6 +107,29 @@ func postOrderTraverse(node *BNode, f func(int)) {
 	postOrderTraverse(node.Left, f)
 	postOrderTraverse(node.Right, f)
 	f(node.Value)
+}
+
+// BreadthFirstTraverse visits all the nodes by levels from top to bottom and from left to right.
+func (t *BST) BreadthFirstTraverse(f func(int)) {
+	if t.root == nil {
+		return
+	}
+
+	queue := gostrutures.Queue{}
+	queue.Push(t.root)
+	for {
+		node := queue.Pop().(*BNode)
+		f(node.Value)
+		if node.Left != nil {
+			queue.Push(node.Left)
+		}
+		if node.Right != nil {
+			queue.Push(node.Right)
+		}
+		if queue.Size() == 0 {
+			break
+		}
+	}
 }
 
 // Min returns the node with minimal value stored in the tree

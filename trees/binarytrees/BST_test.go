@@ -244,6 +244,39 @@ func TestBST_PostOrderTraverse(t *testing.T) {
 	}
 }
 
+func TestBST_BreadthFirstTraverse(t *testing.T) {
+	tt := []struct {
+		name         string
+		insertValues []int
+		expected     []int
+	}{
+		{"balanced tree", []int{5, 3, 1, 4, 7, 9, 6}, []int{5, 3, 7, 1, 4, 6, 9}},
+		{"duplicate values", []int{5, 3, 1, 1, 7, 9, 9}, []int{5, 3, 7, 1, 9}},
+		{"bst (linked list) to right", []int{5, 6, 7, 8, 9, 10}, []int{5, 6, 7, 8, 9, 10}},
+		{"bst (linked list) to left", []int{5, 4, 3, 2, 1}, []int{5, 4, 3, 2, 1}},
+		{"only root", []int{5}, []int{5}},
+		{"nil root", []int{}, []int{}},
+	}
+
+	for _, tc := range tt {
+		t.Run(tc.name, func(t *testing.T) {
+			bst := binarytrees.BST{}
+			fillTreeWithList(&bst, tc.insertValues)
+
+			var result []int
+			bst.BreadthFirstTraverse(func(i int) {
+				result = append(result, i)
+			})
+			for i := range result {
+				if result[i] != tc.expected[i] {
+					t.Errorf("Expected bread first traversal to be '%v'. Got '%v'", tc.expected, result)
+					break
+				}
+			}
+		})
+	}
+}
+
 func TestBST_Min(t *testing.T) {
 	tt := []struct {
 		name         string
