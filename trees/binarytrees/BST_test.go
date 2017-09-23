@@ -1,10 +1,9 @@
 package binarytrees_test
 
 import (
-	"testing"
-
 	"bytes"
 	"fmt"
+	"testing"
 
 	"github.com/ifreddyrondon/gostrutures/trees/binarytrees"
 )
