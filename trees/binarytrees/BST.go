@@ -267,3 +267,8 @@ func nodeHeight(node *BNode) int {
 func (t *BST) Print(w io.Writer) {
 	PrintTreeFromNode(w, t.Root(), 0)
 }
+
+// Print prints a visual representation of the bst by level into an io.Writer
+func (t *BST) PrintByLevel(w io.Writer) {
+	PrintTreeByLevel(w, t.Root())
+}
