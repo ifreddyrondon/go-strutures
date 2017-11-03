@@ -13,7 +13,7 @@ func TestNew(t *testing.T) {
 	}
 }
 
-func TestQueue_Push(t *testing.T) {
+func TestQueuePush(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -42,7 +42,7 @@ func TestQueue_Push(t *testing.T) {
 	}
 }
 
-func TestQueue_Size(t *testing.T) {
+func TestQueueSize(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -64,7 +64,7 @@ func TestQueue_Size(t *testing.T) {
 	}
 }
 
-func TestQueue_Peek(t *testing.T) {
+func TestQueuePeek(t *testing.T) {
 	// GIVEN
 	queue := new(gostrutures.Queue)
 	insertValues, popElement := []int{3, 2, 5, 4}, 3
@@ -84,7 +84,7 @@ func TestQueue_Peek(t *testing.T) {
 	}
 }
 
-func TestQueue_PeekFromEmptyQueue(t *testing.T) {
+func TestQueuePeekFromEmptyQueue(t *testing.T) {
 	// GIVEN
 	queue := new(gostrutures.Queue)
 	// When peek
@@ -99,7 +99,7 @@ func TestQueue_PeekFromEmptyQueue(t *testing.T) {
 	}
 }
 
-func TestQueue_Pop(t *testing.T) {
+func TestQueuePop(t *testing.T) {
 	// Given
 	queue := new(gostrutures.Queue)
 	popElement, lenAfterPop := 3, 3
@@ -119,7 +119,7 @@ func TestQueue_Pop(t *testing.T) {
 	}
 }
 
-func TestQueue_PopFromEmptyQueue(t *testing.T) {
+func TestQueuePopFromEmptyQueue(t *testing.T) {
 	// Given
 	queue := new(gostrutures.Queue)
 	// When pop
@@ -134,7 +134,7 @@ func TestQueue_PopFromEmptyQueue(t *testing.T) {
 	}
 }
 
-func TestQueue_IsEmpty(t *testing.T) {
+func TestQueueIsEmpty(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int

@@ -25,7 +25,7 @@ func TestNew(t *testing.T) {
 	}
 }
 
-func TestBST_Insert(t *testing.T) {
+func TestBSTInsert(t *testing.T) {
 	tt := []struct {
 		name            string
 		insertValues    []int
@@ -144,7 +144,7 @@ func checkDuplicateValueInsert(t *testing.T, parentNode *binarytrees.BNode, valu
 	}
 }
 
-func TestBST_InOrderTraverse(t *testing.T) {
+func TestBSTInOrderTraverse(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -177,7 +177,7 @@ func TestBST_InOrderTraverse(t *testing.T) {
 	}
 }
 
-func TestBST_PreOrderTraverse(t *testing.T) {
+func TestBSTPreOrderTraverse(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -210,7 +210,7 @@ func TestBST_PreOrderTraverse(t *testing.T) {
 	}
 }
 
-func TestBST_PostOrderTraverse(t *testing.T) {
+func TestBSTPostOrderTraverse(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -243,7 +243,7 @@ func TestBST_PostOrderTraverse(t *testing.T) {
 	}
 }
 
-func TestBST_BreadthFirstTraverse(t *testing.T) {
+func TestBSTBreadthFirstTraverse(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -276,7 +276,7 @@ func TestBST_BreadthFirstTraverse(t *testing.T) {
 	}
 }
 
-func TestBST_Min(t *testing.T) {
+func TestBSTMin(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -302,7 +302,7 @@ func TestBST_Min(t *testing.T) {
 	}
 }
 
-func TestBST_MinForNilBST(t *testing.T) {
+func TestBSTMinForNilBST(t *testing.T) {
 	bst := binarytrees.BST{}
 	result := bst.Min()
 	if result != nil {
@@ -310,7 +310,7 @@ func TestBST_MinForNilBST(t *testing.T) {
 	}
 }
 
-func TestBST_Max(t *testing.T) {
+func TestBSTMax(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -336,7 +336,7 @@ func TestBST_Max(t *testing.T) {
 	}
 }
 
-func TestBST_MaxForNilBST(t *testing.T) {
+func TestBSTMaxForNilBST(t *testing.T) {
 	bst := binarytrees.BST{}
 	result := bst.Max()
 	if result != nil {
@@ -344,7 +344,7 @@ func TestBST_MaxForNilBST(t *testing.T) {
 	}
 }
 
-func TestBST_Search(t *testing.T) {
+func TestBSTSearch(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -371,7 +371,7 @@ func TestBST_Search(t *testing.T) {
 	}
 }
 
-func TestBST_SearchNil(t *testing.T) {
+func TestBSTSearchNil(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -394,7 +394,7 @@ func TestBST_SearchNil(t *testing.T) {
 	}
 }
 
-func TestBST_Has(t *testing.T) {
+func TestBSTHas(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -423,7 +423,7 @@ func TestBST_Has(t *testing.T) {
 	}
 }
 
-func TestBST_Remove(t *testing.T) {
+func TestBSTRemove(t *testing.T) {
 	tt := []struct {
 		name            string
 		insertValues    []int
@@ -598,7 +598,7 @@ func TestBST_Remove(t *testing.T) {
 	}
 }
 
-func TestBST_Height(t *testing.T) {
+func TestBSTHeight(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -626,7 +626,7 @@ func TestBST_Height(t *testing.T) {
 	}
 }
 
-func TestBST_Print(t *testing.T) {
+func TestBSTPrint(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
@@ -669,7 +669,7 @@ func TestBST_Print(t *testing.T) {
 	}
 }
 
-func TestBST_PrintByLevel(t *testing.T) {
+func TestBSTPrintByLevel(t *testing.T) {
 	tt := []struct {
 		name         string
 		insertValues []int
