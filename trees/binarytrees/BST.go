@@ -263,6 +263,30 @@ func nodeHeight(node *BNode) int {
 	return intMax(nodeHeight(node.Left), nodeHeight(node.Right)) + 1
 }
 
+// LCA or Lowest Common Ancestor,
+// returns the lowest BNode in the BST that has both given values as descendants.
+func (t *BST) LCA(v1, v2 int) *BNode {
+	return findLCA(t.root, v1, v2)
+}
+
+func findLCA(node *BNode, v1, v2 int) *BNode {
+	if node == nil {
+		return nil
+	}
+
+	if node.Value > v1 && node.Value > v2 {
+		return findLCA(node.Left, v1, v2)
+	} else if node.Value < v1 && node.Value < v2 {
+		return findLCA(node.Right, v1, v2)
+	}
+
+	if searchNode(node, v1) != nil && searchNode(node, v2) != nil {
+		return node
+	}
+
+	return nil
+}
+
 // Print prints a visual representation of the bst into an io.Writer
 func (t *BST) Print(w io.Writer) {
 	PrintTreeFromNode(w, t.Root(), 0)

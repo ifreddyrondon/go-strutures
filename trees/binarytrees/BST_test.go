@@ -626,6 +626,55 @@ func TestBSTHeight(t *testing.T) {
 	}
 }
 
+func TestBSTLCA(t *testing.T) {
+	bst := binarytrees.BST{}
+	fillTreeWithList(&bst, []int{5, 3, 1, 4, 7, 9, 6})
+
+	tt := []struct {
+		name     string
+		v1, v2   int
+		expected *binarytrees.BNode
+	}{
+		{
+			"LCA into left branch of the tree",
+			1, 4,
+			binarytrees.NewBNode(3),
+		},
+		{
+			"LCA into right branch of the tree",
+			9, 6,
+			binarytrees.NewBNode(7),
+		},
+		{
+			"root LCA",
+			1, 9,
+			binarytrees.NewBNode(5),
+		},
+		{
+			"missing value",
+			1, 10,
+			nil,
+		},
+	}
+
+	for _, tc := range tt {
+		t.Run(tc.name, func(t *testing.T) {
+			result := bst.LCA(tc.v1, tc.v2)
+
+			if tc.expected == nil {
+				if result != nil {
+					t.Fatalf("Expected LCA to be nil. Got '%v'", result)
+				}
+				return
+			}
+
+			if result.Value != tc.expected.Value {
+				t.Errorf("Expected LCA to be '%v'. Got '%v'", tc.expected.Value, result.Value)
+			}
+		})
+	}
+}
+
 func TestBSTPrint(t *testing.T) {
 	tt := []struct {
 		name         string
